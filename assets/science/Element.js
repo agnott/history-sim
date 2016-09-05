@@ -1,13 +1,33 @@
-var Element = function(seed){
+var Element = function(seed, args){
   var ret = {
-    seed: seed
+    seed: seed,
+    keywords: [],
+    attrs: {}
   };
   var rand = new Random(seed);
 
   //Physical properties
-  for(var i=0; i<CONFIG.ELEMENT.length; i+=2){
-    ret[CONFIG.ELEMENT[i]] = FUNCTIONS[CONFIG.ELEMENT[i+1]['fn']](rand, CONFIG.ELEMENT[i+1]['args'] || {});
+  var fn = null;
+  var args = null;
+  for(var i=0; i<CONFIG.ATTRS.length; i++){
+    if( 'Element' in CONFIG.ATTRS[i].attrof ){
+      fn = CONFIG.ATTRS[i].attrof.Element.fn;
+      args = CONFIG.ATTRS[i].attrof.Element.args;
+      ret.attrs[CONFIG.ATTRS[i].name] = FUNCTIONS[fn](rand, args || {});
+    }
   }
+
+  //Print function
+  ret.html = function(){
+    var html = '<div class="element-item">';
+    var key = '';
+    for(var i=0; i<Object.keys(ret.attrs).length; i++){
+      key = Object.keys(ret.attrs)[i];
+      html += `<div>${key}: <span style="float: right;">${ret.attrs[key]}</span></div>`
+    }
+    html += '</div>';
+    return html;
+  };
 
   return ret;
 };
