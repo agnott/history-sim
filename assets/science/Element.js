@@ -23,7 +23,9 @@ var Element = function(seed, args){
     var key = '';
     for(var i=0; i<Object.keys(ret.attrs).length; i++){
       key = Object.keys(ret.attrs)[i];
-      html += `<div>${key}: <span style="float: right;">${ret.attrs[key]}</span></div>`
+      html += `<div>${key}: <span style="float: right;">${
+        (typeof ret.attrs[key] === 'number')? ret.attrs[key].toFixed(2) : ret.attrs[key]
+      }</span></div>`
     }
     html += '</div>';
     return html;

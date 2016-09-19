@@ -1,4 +1,4 @@
-var rand = new Random(10);
+var rand = new Random();
 
 var LANG = new Language(Math.floor(rand.uniform(0,Number.MAX_SAFE_INTEGER)));
 
@@ -10,7 +10,8 @@ for(var i=0; i<rand.uniform(10,15); i++){
 }
 
 var GEOGRAPHY = new Geography(Math.floor(rand.uniform(0,Number.MAX_SAFE_INTEGER)), {
-  target: 'map'
+  target: 'map',
+  dim: [500,500]
 });
 
 var CITY = new City(Math.floor(rand.uniform(0,Number.MAX_SAFE_INTEGER)), {
